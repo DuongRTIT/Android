@@ -14,3 +14,8 @@ buildscript {
         classpath("com.google.gms:google-services:4.4.2")  // Phiên bản đúng của plugin google-services
     }
 }
+
+tasks.withType<JavaCompile>().configureEach {
+    options.encoding = "UTF-8"
+}
+

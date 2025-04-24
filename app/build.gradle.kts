@@ -3,7 +3,9 @@ plugins {
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
     id("com.google.gms.google-services")  // Áp dụng plugin google-services cho ứng dụng
+    id("kotlin-kapt")
 }
+
 
 android {
     namespace = "com.example.eventmanagementapp"
@@ -50,7 +52,9 @@ dependencies {
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
-
+    implementation(libs.firebase.database)
+    implementation(libs.androidx.constraintlayout)
+    implementation(libs.androidx.appcompat)
     // Testing dependencies
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
@@ -71,4 +75,18 @@ dependencies {
 
     // Firebase Analytics (nếu cần)
     implementation("com.google.firebase:firebase-analytics")
+
+    implementation ("androidx.constraintlayout:constraintlayout:2.0.4")
+
+    implementation ("com.github.bumptech.glide:glide:4.16.0")
+    kapt ("com.github.bumptech.glide:compiler:4.16.0")
+
+    implementation("androidx.recyclerview:recyclerview:1.3.1")
+    implementation("com.google.android.material:material:1.11.0")
+
+
+
+
+
+
 }

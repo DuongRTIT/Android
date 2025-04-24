@@ -24,10 +24,15 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
+        <activity android:name=".ListEventActivity" />
+        <activity android:name=".CreateEventActivity" />
+        <activity android:name=".HomeActivity" />
+        <activity android:name=".UserProfileActivity" />
+        <activity android:name=".ListSupplierActivity" />
 
 
 
     </application>
+    <uses-permission android:name="android.permission.INTERNET" />
 
 </manifest>
