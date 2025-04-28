@@ -1,5 +1,6 @@
 package com.example.eventmanagementapp.adapter
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,6 +9,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.eventmanagementapp.EndedEventDetailActivity
 import com.example.eventmanagementapp.R
 import com.example.eventmanagementapp.model.Event
 import com.google.firebase.Timestamp
@@ -56,15 +58,15 @@ class EventAdapter(private val eventList: List<Event>) :
         // OnClick: Hiện toast (có thể mở EventDetailActivity nếu muốn)
         holder.itemView.setOnClickListener {
             val context = holder.itemView.context
-            Toast.makeText(context, "Bạn đã chọn: ${event.event_name}", Toast.LENGTH_SHORT).show()
-
-            // Nếu bạn muốn mở chi tiết:
-            /*
-            val intent = Intent(context, EventDetailActivity::class.java)
-            intent.putExtra("eventId", event.id)
-            context.startActivity(intent)
-            */
+            if (event.status.lowercase(Locale.getDefault()) == "đã kết thúc") {
+                val intent = Intent(context, EndedEventDetailActivity::class.java)
+                intent.putExtra("eventId", event.id)  // Gửi ID sự kiện đúng
+                context.startActivity(intent)
+            } else {
+                Toast.makeText(context, "Sự kiện chưa kết thúc", Toast.LENGTH_SHORT).show()
+            }
         }
+
     }
 
     override fun getItemCount(): Int = eventList.size

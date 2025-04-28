@@ -29,6 +29,11 @@
         <activity android:name=".HomeActivity" />
         <activity android:name=".UserProfileActivity" />
         <activity android:name=".ListSupplierActivity" />
+        <activity android:name=".ListContractActivity" />
+        <activity android:name=".EndedEventDetailActivity" />
+        <activity android:name=".ListFeedbackActivity"/>
+
+
 
 
 
