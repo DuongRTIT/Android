@@ -32,6 +32,8 @@
         <activity android:name=".ListContractActivity" />
         <activity android:name=".EndedEventDetailActivity" />
         <activity android:name=".ListFeedbackActivity"/>
+        <activity android:name=".UpcomingEventDetailActivity"/>
+        <activity android:name=".ListTaskActivity"/>
 
 
 

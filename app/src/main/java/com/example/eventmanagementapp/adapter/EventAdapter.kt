@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.eventmanagementapp.EndedEventDetailActivity
 import com.example.eventmanagementapp.R
+import com.example.eventmanagementapp.UpcomingEventDetailActivity
 import com.example.eventmanagementapp.model.Event
 import com.google.firebase.Timestamp
 import java.text.SimpleDateFormat
@@ -63,7 +64,10 @@ class EventAdapter(private val eventList: List<Event>) :
                 intent.putExtra("eventId", event.id)  // Gửi ID sự kiện đúng
                 context.startActivity(intent)
             } else {
-                Toast.makeText(context, "Sự kiện chưa kết thúc", Toast.LENGTH_SHORT).show()
+                //Toast.makeText(context, "Sự kiện chưa kết thúc", Toast.LENGTH_SHORT).show()
+                val intent = Intent(context, UpcomingEventDetailActivity::class.java)
+                intent.putExtra("eventId", event.id)  // Gửi ID sự kiện đúng
+                context.startActivity(intent)
             }
         }
 
