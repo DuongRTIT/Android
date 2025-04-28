@@ -1,0 +1,9 @@
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <solid android:color="#FFBB86FC"/> <!-- Màu nền (ở đây là màu tím) -->
+
+    <corners android:radius="16dp"/>  <!-- Viền bo cong với bán kính 16dp -->
+
+    <stroke
+        android:color="#6200EE"
+        android:width="2dp"/>
+</shape>
