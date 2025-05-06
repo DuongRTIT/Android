@@ -1,0 +1,6 @@
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <solid android:color="#FCC419"/> <!-- Màu nền trắng -->
+
+    <corners android:radius="16dp"/> <!-- Bo góc với bán kính 16dp -->
+
+</shape>

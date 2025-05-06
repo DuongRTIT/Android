@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="16dp"
+    android:background="@android:color/white"
+    android:layout_marginBottom="8dp">
+
+    <!-- LinearLayout with vertical orientation to display items on separate lines -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="8dp">
+
+        <!-- Tên hoạt động -->
+        <TextView
+            android:id="@+id/tv_activity_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Tên hoạt động"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="#000"
+            android:layout_marginBottom="8dp"/>
+
+        <!-- Thời gian bắt đầu -->
+        <TextView
+            android:id="@+id/tv_start_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Bắt đầu: 10:00 AM"
+            android:textSize="14sp"
+            android:textColor="#555"
+            android:layout_marginBottom="8dp"/>
+
+        <!-- Thời gian kết thúc -->
+        <TextView
+            android:id="@+id/tv_end_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Kết thúc: 12:00 PM"
+            android:textSize="14sp"
+            android:textColor="#555"
+            android:layout_marginBottom="8dp"/>
+
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
