@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.eventmanagementapp.adapter.SupplierAdapter
 import com.example.eventmanagementapp.model.Supplier
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.firebase.firestore.FirebaseFirestore
 
 class ListSupplierActivity : AppCompatActivity() {
@@ -56,6 +57,13 @@ class ListSupplierActivity : AppCompatActivity() {
         findViewById<ImageButton>(R.id.btn_back).setOnClickListener {
             onBackPressedDispatcher.onBackPressed()
         }
+
+        val fabAddSupplier = findViewById<FloatingActionButton>(R.id.fab_add_supplier)
+        fabAddSupplier.setOnClickListener {
+            val intent = Intent(this, AddSupplierActivity::class.java)
+            startActivity(intent)
+        }
+
     }
 
     private fun loadSuppliers() {

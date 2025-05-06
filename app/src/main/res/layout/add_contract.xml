@@ -36,7 +36,7 @@
             android:layout_centerVertical="true"
             android:layout_marginStart="12dp"
             android:layout_toEndOf="@id/btn_back"
-            android:text="Danh sách nhà cung cấp"
+            android:text="Tạo hợp đồng"
             android:textSize="20sp"
             android:textStyle="bold"
             android:textColor="#000000" />
@@ -61,49 +61,71 @@
             android:contentDescription="Cài đặt" />
     </RelativeLayout>
 
-    <!-- Search Bar -->
-    <EditText
-        android:id="@+id/search_bar"
-        android:layout_width="0dp"
-        android:layout_height="44dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:hint="Tìm kiếm nhà cung cấp..."
-        android:inputType="text"
-        android:background="@drawable/search_background"
-        android:padding="12dp"
-        android:textColor="#000"
-        android:textColorHint="#888"
-        android:elevation="8dp"
-        android:drawableStart="@android:drawable/ic_menu_search"
-        app:layout_constraintTop_toBottomOf="@id/header"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
-
-    <!-- Danh sách nhà cung cấp -->
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycler_suppliers"
+    <!-- Body: nội dung thêm -->
+    <ScrollView
+        android:id="@+id/scroll_body"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:padding="8dp"
-        app:layout_constraintTop_toBottomOf="@id/search_bar"
+        android:fillViewport="true"
+        app:layout_constraintTop_toBottomOf="@id/header"
         app:layout_constraintBottom_toTopOf="@id/footer"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent">
 
-    <!-- Nút thêm nhà cung cấp -->
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab_add_supplier"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        android:contentDescription="Thêm nhà cung cấp"
-        android:src="@drawable/ic_add"
-        app:layout_constraintBottom_toTopOf="@id/footer"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:backgroundTint="@color/teal_700" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Hợp đồng"
+                android:textSize="22sp"
+                android:textStyle="bold"
+                android:layout_marginBottom="24dp" />
+
+            <TextView
+                android:text="Chọn sự kiện"
+                android:textStyle="bold"
+                android:layout_marginBottom="8dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <Spinner
+                android:id="@+id/spinner_event"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp" />
+
+            <TextView
+                android:text="Chi tiết hợp đồng"
+                android:textStyle="bold"
+                android:layout_marginBottom="8dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <EditText
+                android:id="@+id/et_contract_detail"
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:hint="Nhập nội dung hợp đồng..."
+                android:gravity="top|start"
+                android:background="@drawable/edittext_background"
+                android:padding="12dp"
+                android:inputType="textMultiLine"
+                android:layout_marginBottom="24dp" />
+
+            <Button
+                android:id="@+id/btn_create_contract"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Tạo hợp đồng"
+                android:textColor="@android:color/white"
+                android:backgroundTint="@color/teal_700" />
+        </LinearLayout>
+    </ScrollView>
 
     <!-- Footer -->
     <LinearLayout
@@ -152,4 +174,5 @@
             android:scaleType="centerInside"
             android:contentDescription="Người dùng" />
     </LinearLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
