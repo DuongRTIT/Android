@@ -75,6 +75,12 @@ class UpcomingEventDetailActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
+        btnGuestList.setOnClickListener {
+            val intent = Intent(this, GuestListActivity::class.java)
+            intent.putExtra("event_id", eventId)
+            startActivity(intent)
+        }
+
         btnBudgetPlan.setOnClickListener {
             val intent = Intent(this, BudgetPlanActivity::class.java)
             intent.putExtra("eventId", eventId)

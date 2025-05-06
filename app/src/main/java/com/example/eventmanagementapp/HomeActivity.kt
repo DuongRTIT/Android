@@ -7,6 +7,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.eventmanagementapp.adapter.PendingTaskEventAdapter
 import com.example.eventmanagementapp.adapter.TopEventAdapter
 import com.example.eventmanagementapp.model.Event
 import com.google.firebase.firestore.FirebaseFirestore
@@ -18,6 +19,8 @@ class HomeActivity : AppCompatActivity() {
     private lateinit var iconSupplier: ImageView
     private lateinit var iconUser: ImageView
     private lateinit var recyclerView: RecyclerView
+    private lateinit var recyclerPendingTask: RecyclerView
+
 
     private val db = FirebaseFirestore.getInstance()
 
@@ -38,6 +41,16 @@ class HomeActivity : AppCompatActivity() {
             val adapter = TopEventAdapter(topList)
             recyclerView.adapter = adapter
         }
+
+        recyclerPendingTask = findViewById(R.id.recycler_pending_tasks)
+        recyclerPendingTask.layoutManager = LinearLayoutManager(this)
+
+// Gọi hàm tải dữ liệu
+        loadEventsWithPendingTasks { pendingList ->
+            val pendingAdapter = PendingTaskEventAdapter(pendingList)
+            recyclerPendingTask.adapter = pendingAdapter
+        }
+
 
         // Footer navigation
         iconEvent.setOnClickListener {
@@ -120,4 +133,71 @@ class HomeActivity : AppCompatActivity() {
             Toast.makeText(this, "Lỗi tải Feedbacks: ${it.message}", Toast.LENGTH_SHORT).show()
         }
     }
+
+    private fun loadEventsWithPendingTasks(callback: (List<Pair<Event, Int>>) -> Unit) {
+        val pendingMap = mutableMapOf<Int, Int>()
+
+        db.collection("Tasks")
+            .whereEqualTo("status", "Chưa hoàn thành")
+            .get()
+            .addOnSuccessListener { taskDocs ->
+                if (taskDocs.isEmpty) {
+                    Toast.makeText(this, "Không có task nào chưa hoàn thành", Toast.LENGTH_SHORT).show()
+                    callback(emptyList())
+                    return@addOnSuccessListener
+                }
+
+                for (doc in taskDocs) {
+                    val eventId = doc.getLong("event_id")?.toInt() ?: continue
+                    pendingMap[eventId] = pendingMap.getOrDefault(eventId, 0) + 1
+                }
+
+                val resultList = mutableListOf<Pair<Event, Int>>()
+                val eventIds = pendingMap.keys.toList()
+                var counter = 0
+
+                for (eventId in eventIds) {
+                    db.collection("Events")
+                        .whereEqualTo("id", eventId)
+                        .get()
+                        .addOnSuccessListener { eventDocs ->
+                            if (!eventDocs.isEmpty) {
+                                val doc = eventDocs.documents[0]
+                                val status = doc.getString("status") ?: ""
+                                if (status == "đang diễn ra" || status == "sắp diễn ra") {
+                                    val event = Event(
+                                        id = (doc.getLong("id") ?: 0).toInt(),
+                                        event_name = doc.getString("event_name") ?: "",
+                                        description = doc.getString("description") ?: "",
+                                        price = doc.getLong("price") ?: 0L,
+                                        imageURL = doc.getString("imageURL") ?: "",
+                                        start_time = doc.getTimestamp("start_time"),
+                                        end_time = doc.getTimestamp("end_time"),
+                                        created_at = doc.getTimestamp("created_at"),
+                                        status = status,
+                                        user_id = (doc.getLong("user_id") ?: 0).toInt(),
+                                        venue_id = (doc.getLong("venue_id") ?: 0).toInt()
+                                    )
+                                    resultList.add(event to pendingMap[eventId]!!)
+                                }
+                            }
+                            counter++
+                            if (counter == eventIds.size) {
+                                callback(resultList)
+                            }
+                        }
+                        .addOnFailureListener {
+                            counter++
+                            if (counter == eventIds.size) {
+                                callback(resultList)
+                            }
+                        }
+                }
+            }
+            .addOnFailureListener {
+                Toast.makeText(this, "Lỗi tải Tasks: ${it.message}", Toast.LENGTH_SHORT).show()
+                callback(emptyList())
+            }
+    }
+
 }
